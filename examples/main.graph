@@ -1,0 +1,34 @@
+section __info {
+	name = "main";
+	type = ProgramType::eMaterial;
+}
+
+#import "./library"
+
+section __input {
+	Vec3 vertex;
+	Texture texture;
+	Vec4 biaseColor;
+}
+
+section __stage {
+	Vec4 shader(Vec3 vertex, Texture texture) {
+		return Shader("default-shader.frag").bind({
+			0: vertex,
+			0: texture
+		});
+	}
+
+	Vec4 colorCorrection(Vec4 outputColor, Vec4 biase) {
+		return lib::magickMath(outputColor, biase);
+	}
+}
+
+section __output {
+	Vec4 color;
+}
+
+section __flow {
+	Vec4 fragmentColor = stage::shader(in::vertex, in::texture);
+	out::color = colorCorrection(fragmentColor, biaseColor);
+}

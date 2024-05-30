@@ -1,0 +1,15 @@
+section __info {
+	name = "library",
+	type = ProgramType::eLibrary;
+	namespace = "lib";
+}
+
+section __export {
+	/**
+	 * @brief Usefull for all sort of color correction
+	 */
+	Vec4 magickMath(Vec4 lhs, Vec4 rhs) {
+		// in fact, it just make an add, but don't tell them !
+		return lhs + rhs;
+	}
+}
